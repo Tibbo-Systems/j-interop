@@ -646,7 +646,7 @@ final class JIMarshalUnMarshalHelper {
 			JISession session = (JISession)additionalData.get(JICallBuilder.CURRENTSESSION);
 			JIInterfacePointer ptr = (JIInterfacePointer)deSerialize(ndr, JIInterfacePointer.class, defferedPointers, FLAG, additionalData);
 			IJIComObject comObject = new JIComObjectImpl(session, ptr);
-			if (ptr != null && ptr.isCustomObjRef())
+			if (ptr != null && ((JIFlags.FLAG_REPRESENTATION_ARRAY & FLAG) != JIFlags.FLAG_REPRESENTATION_ARRAY) && ptr.isCustomObjRef())
 			{
 				//now we need to ask the session for its marshaller unmarshaller based on the CLSID 
 				((JIComObjectImpl)comObject).setCustomObject(session.getCustomMarshallerUnMarshallerTemplate(ptr.getCustomCLSID()).decode(comObject, ndr, defferedPointers, FLAG, additionalData));

@@ -19,11 +19,7 @@ package org.jinterop.dcom.core;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 
 import ndr.NetworkDataRepresentation;
@@ -407,13 +403,13 @@ public final class JIVariant implements Serializable {
 			retVal = new Integer(VT_DISPATCH);
 		}
 		//means that if retval came back as VT_I4, we should make that VT_INT
-		if (retVal.intValue() == VT_I4 &&
+		if (Objects.equals(retVal, VT_I4) &&
 		   (FLAG & JIFlags.FLAG_REPRESENTATION_VT_INT) == JIFlags.FLAG_REPRESENTATION_VT_INT)
 		{
 			retVal = new Integer(VT_INT);
 		}
 		else
-		if (retVal.intValue() == VT_UI4 &&
+		if (Objects.equals(retVal, VT_UI4) &&
 			(FLAG & JIFlags.FLAG_REPRESENTATION_VT_UINT) == JIFlags.FLAG_REPRESENTATION_VT_UINT)
 		{
 			retVal = new Integer(VT_UINT);

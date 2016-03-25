@@ -1,0 +1,3 @@
+include ':j-interopdeps'
+project(':j-interopdeps').projectDir = new File(settingsDir, '../j-interopdeps')
+

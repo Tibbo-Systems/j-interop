@@ -1002,7 +1002,7 @@ public final class JISession {
 		remInterface.addMember(new Integer(0));//private refs = 0
 		if (JISystem.getLogger().isLoggable(Level.INFO))
         {
-			JISystem.getLogger().warning("prepareForReleaseRef: Releasing " + refcount + "references of IPID: " + IPID + " session: " + getSessionIdentifier());
+			JISystem.getLogger().info("prepareForReleaseRef: Releasing " + refcount + "references of IPID: " + IPID + " session: " + getSessionIdentifier());
             debug_delIpids(IPID, refcount);
         }
 		updateReferenceForIPID(IPID, -1 * refcount);

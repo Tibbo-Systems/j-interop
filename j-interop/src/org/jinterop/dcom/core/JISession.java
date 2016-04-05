@@ -943,7 +943,7 @@ public final class JISession {
 		obj.addInParamAsInt(0,JIFlags.FLAG_NULL);//private refs = 0
 		if (JISystem.getLogger().isLoggable(Level.INFO))
         {
-			JISystem.getLogger().warning("releaseRef: Releasing numinstances " + numinstances + " references of IPID: " + IPID + " session: " + getSessionIdentifier());
+			JISystem.getLogger().info("releaseRef: Releasing numinstances " + numinstances + " references of IPID: " + IPID + " session: " + getSessionIdentifier());
 			debug_delIpids(IPID, numinstances);
         }
 		addRef_ReleaseRef(IPID, obj, -5);

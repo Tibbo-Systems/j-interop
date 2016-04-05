@@ -12,10 +12,12 @@ subprojects {
         main {
             java {
                 srcDir 'src'
+                exclude "**/test/*"
             }
             resources {
                 srcDirs "src"
                 exclude "**/*.java"
+                exclude "**/test/*"
             }
         }
     }

@@ -1,4 +1,3 @@
-
 /**
 * j-Interop (Pure Java implementation of DCOM protocol)
 *     
@@ -631,6 +630,14 @@ public final class JIErrorCodes {
   */
  public static final int JI_COMSTUB_ILLEGAL_ARGUMENTS2 = 0x00001053;
  
+ /**
+  * The object name is not found.
+  */
+ public static final int STATUS_OBJECT_NAME_NOT_FOUND = 0xC0000034;
  
+ /**
+  * An invalid HANDLE was specified
+  */
+ public static final int WIN_INVALID_HANDLE = 0xC0000008;
  
 }

@@ -721,6 +721,16 @@ public final class JIVariant implements Serializable {
 		init(new Double(value),isByRef);
 	}
 
+	/**Setting up a <code>VARIANT</code> with a <code>byte</code>. Used via serializing the <code>VARIANT</code>.
+	 *
+	 * @param value
+	 * @param isByRef <code>true</code> if the value is to be represented as a pointer. BYTE*
+	 */
+	public JIVariant(byte value, boolean isByRef)
+	{
+		init(new Byte(value),isByRef);
+	}
+
 	/**Setting up a <code>VARIANT</code> with a <code>short</code>. Used via serializing the <code>VARIANT</code>.
 	 *
 	 * @param value
@@ -848,6 +858,15 @@ public final class JIVariant implements Serializable {
 	 * @param value
 	 */
 	public JIVariant(double value)
+	{
+		this(value,false);
+	}
+
+	/**Setting up a <code>VARIANT</code> with a <code>byte</code>. Used via serializing the <code>VARIANT</code>.
+	 *
+	 * @param value
+	 */
+	public JIVariant(byte value)
 	{
 		this(value,false);
 	}

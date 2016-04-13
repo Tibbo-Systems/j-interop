@@ -17,10 +17,10 @@
 
 package ndr;
 
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
+import java.io.*;
+import java.util.*;
 
-import jcifs.util.Encdec;
+import jcifs.util.*;
 
 public class NdrBuffer {
 	int referent;
@@ -67,7 +67,7 @@ public class NdrBuffer {
     public void setIndex(int index) {
         this.index = index;
     }
-    public int getCapacity() {
+	  public int getCapacity() {
         return buf.length - start;
     }
     public byte[] getBuffer() {
@@ -87,10 +87,19 @@ public class NdrBuffer {
 		return n;
 	}
 	public void writeOctetArray(byte[] b, int i, int l) {
+		        if (index + l > buf.length) {
+			            resize(index + l);
+			        }
 		System.arraycopy(b, i, buf, index, l);
 		advance(l);
 	}
-	public void readOctetArray(byte[] b, int i, int l) {
+
+	public void readOctetArray(byte[] b, int i, int l)
+	{
+		if (index + l > buf.length)
+		{
+			resize(index + l);
+		}
 		System.arraycopy(buf, index, b, i, l);
 		advance(l);
 	}
@@ -100,11 +109,30 @@ public class NdrBuffer {
 		return deferred.length;
 	}
 	public void advance(int n) {
-		index += n;
-		if ((index - start) > deferred.length) {
-			deferred.length = index - start;
+    index += n;
+    // purposely *don't* resize if the index has been advanced to the end of
+    // the buffer because this is probably not a bug but simply a full
+    // buffer
+    if (index > buf.length)
+    {
+      resize(index + 1);
+    }
+    if ((index - start) > deferred.length)
+    {
+      deferred.length = index - start;
+    }
+  }
+
+	public void resize(int min) {
+		int newSize = 0;
+		if (min > newSize) {
+			newSize = min;
 		}
+		byte[] newBuffer = new byte[newSize];
+		System.arraycopy(buf, 0, newBuffer, 0, buf.length);
+		buf = newBuffer;
 	}
+
 	public int align(int boundary) {
 		if (ignoreAlign)
     	{
@@ -117,10 +145,17 @@ public class NdrBuffer {
 		return n;
 	}
     public void enc_ndr_small(int s) {
+        if (index >= buf.length) {
+            resize(index + 1);
+        }
         buf[index] = (byte)(s & 0xFF);
 		advance(1);
     }
+    
     public int dec_ndr_small() {
+        if (index >= buf.length) {
+            resize(index + 1);
+        }
 		int val = buf[index] & 0xFF;
 		advance(1);
 		return val;
@@ -137,11 +172,19 @@ public class NdrBuffer {
         return val;
     }
     public void enc_ndr_long(int l) {
+        align(4);
+        if (index + 4 > buf.length) {
+            resize(index + 4);
+        }
 		align(4);
         Encdec.enc_uint32le(l, buf, index);
 		advance(4);
     }
     public int dec_ndr_long() {
+        align(4);
+        if (index + 4 > buf.length) {
+            resize(index + 4);
+        }
 		align(4);
         int val = Encdec.dec_uint32le(buf, index);
 		advance(4);

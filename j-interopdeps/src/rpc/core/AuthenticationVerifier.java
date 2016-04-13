@@ -77,6 +77,9 @@ public class AuthenticationVerifier extends NdrObject {
         dst.enc_ndr_small(padding);
         dst.enc_ndr_small(0);  //Reserved
         dst.enc_ndr_long(contextId);
+        if (dst.getIndex() + body.length > dst.getBuffer().length) {
+            dst.resize(dst.getIndex() + body.length);
+        }
         System.arraycopy(body, 0, dst.getBuffer(), dst.getIndex(), body.length);
 		//dst.index += body.length;
         dst.advance(body.length);

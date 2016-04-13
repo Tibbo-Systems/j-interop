@@ -3,8 +3,6 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
-
-
 subprojects {
     apply plugin: 'java'
 
@@ -38,5 +36,7 @@ subprojects {
     artifacts {
         archives sourcesJar
     }
+
+    libsDirName = '../../lib'
 }
 

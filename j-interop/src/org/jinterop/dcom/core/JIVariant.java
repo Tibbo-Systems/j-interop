@@ -403,13 +403,13 @@ public final class JIVariant implements Serializable {
 			retVal = VT_DISPATCH;
 		}
 		//means that if retval came back as VT_I4, we should make that VT_INT
-		if (Objects.equals(retVal, VT_I4) &&
+		if (retVal != null && retVal == VT_I4 &&
 		   (FLAG & JIFlags.FLAG_REPRESENTATION_VT_INT) == JIFlags.FLAG_REPRESENTATION_VT_INT)
 		{
 			retVal = VT_INT;
 		}
 		else
-		if (Objects.equals(retVal, VT_UI4) &&
+		if (retVal != null && retVal ==  VT_UI4 &&
 			(FLAG & JIFlags.FLAG_REPRESENTATION_VT_UINT) == JIFlags.FLAG_REPRESENTATION_VT_UINT)
 		{
 			retVal = VT_UINT;
